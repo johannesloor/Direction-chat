@@ -77,12 +77,10 @@
    });
 
    if (window.DeviceOrientationEvent) {
-      window.addEventListener("deviceorientation", deviceOrientationListener);
-      alert('hej' + document.getElementById("heading").innerHTML)
-      /*
-      if(typeof document.getElementById("heading").value == "undefined"){
+      window.addEventListener("deviceorientation", deviceOrientationListener);      
+      if(document.getElementById("heading").innerHTML == "Direction chat"){
         alert('You need to change your settings for the app to work! Go to: Settings > Safari > Motion & Orientation Access (ON)')
-      }*/
+      }
     }
     else {
       document.getElementById("heading").innerHTML = "Sorry, your browser doesn't support Device Orientation";
@@ -96,7 +94,6 @@
      //Check if absolute values have been sent
      if (typeof event.webkitCompassHeading !== "undefined") {
        alpha = event.webkitCompassHeading; //for iOS devices
-       document.getElementById("heading").innerHTML = alpha;
        if (alpha >= 305 || alpha < 45) {
          document.getElementById("heading").innerHTML = "North";
          showPage('chatWindowNorth')
