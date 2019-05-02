@@ -77,8 +77,7 @@
    });
 
    if (window.DeviceOrientationEvent) {
-      window.addEventListener("deviceorientation", deviceOrientationListener);
-
+      window.addEventListener("deviceorientation", deviceOrientationListener, true);
     }
     else {
 
