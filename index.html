@@ -43,7 +43,7 @@
   <body>
     <ons-page id="home">
       <ons-toolbar>
-        <div id="heading" class="center"></div>
+        <div id="heading" class="center">Direction chat</div>
       </ons-toolbar>
 
       <div class="container chatWindow" id="chatWindowNorth">
@@ -78,11 +78,10 @@
 
    if (window.DeviceOrientationEvent) {
       window.addEventListener("deviceorientation", deviceOrientationListener);
-      alert(window.DeviceOrientationEvent.event.alpha)
-      /*
+
       if(typeof document.getElementById("heading").value == "undefined"){
         alert('You need to change your settings for the app to work! <br> Go to: Settings > Safari > Motion & Orientation Access (ON)')
-      }*/
+      }
     }
     else {
       document.getElementById("heading").innerHTML = "Sorry, your browser doesn't support Device Orientation";
