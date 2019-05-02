@@ -20,17 +20,18 @@
         font-family: "Lucida Console", monospace, verdana;
       }
       .chatWindow{
-        position: relative;
         bottom: 10vh;
         top: 5vh;
       }
       .messageArea{
-        margin: 3%;
       }
       .message{
         background-color: #0084ff;
         color: white;
-        padding: 5%;
+        padding-top: 10px;
+        padding-bottom: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
       }
       .messagebox{
         position: fixed;
@@ -46,7 +47,9 @@
         <div id="heading" class="center">Direction chat</div>
       </ons-toolbar>
 
-      <div class="container chatWindow" id="chatWindowNorth">
+      <div class="container-fluid chatWindows">
+
+      <div class="row chatWindow" id="chatWindowNorth">
       </div>
 
       <div class="container chatWindow" id="chatWindowSouth">
@@ -57,13 +60,11 @@
 
       <div class="container chatWindow" id="chatWindowWest">
       </div>
-
-
-      <ons-bottom-toolbar class="messagebox container" aligned>
+      </div>
+      <ons-bottom-toolbar class="messagebox container-fluid" aligned>
         <div class="row">
-          <textarea class="textarea textarea--transparent col-8" rows="2" id="message" placeholder="Message"></textarea>
-          <div class="col-1"></div>
-          <ons-button class="col-3" onclick="publishMessage()">Send</ons-button>
+          <textarea class="textarea textarea--transparent col-10" rows="2" id="message" placeholder="Message"></textarea>
+          <ons-button class="col-2" onclick="publishMessage()">Send</ons-button>
         </div>
 
       </ons-bottom-toolbar>
@@ -81,7 +82,7 @@
       window.addEventListener("deviceorientation", deviceOrientationListener);
     }
     else {
-      document.getElementById("heading").innerHTML = "Sorry, your browser doesn't support Device Orientation";
+      //document.getElementById("heading").innerHTML = "Sorry, your browser doesn't support Device Orientation";
    }
 
    function deviceOrientationListener(event) {
@@ -138,8 +139,15 @@
      function publishMessage() {
        var mess = document.getElementById("message").value;
        var direction = document.getElementById("heading").innerHTML;
-       pubnubDemo.publish({ message: {"text":mess}, channel: direction});
+       if(direction == 'North' || direction == 'West' ||
+       direction == 'East' || direction == 'South'){
+         pubnubDemo.publish({ message: {"text":mess}, channel: direction});
+       }
+       else{
+         pubnubDemo.publish({ message: {"text":mess}, channel: 'North'});
+       }
        document.getElementById("message").value = '';
+
      }
 
      pubnubDemo.addListener({
@@ -147,17 +155,28 @@
          message1 = message.message.text;
          let direction = message.channel;
          addTextbox(message1, direction)
+         window.scrollTo(0,9999);
        }
      })
      pubnubDemo.subscribe({
        channels: ["North", "East", "South", "West"]
      });
 
+     function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+
      function addTextbox(message, direction){
+       let color = getRandomColor()
        if (message != ''){
          document.getElementById("chatWindow" + direction).innerHTML +=
-         `<div class="row messageArea">
-         <div class="col-12 message" rows="3">` + message + `</div>
+         `<div class="messageArea">
+         <div class="message" style='background-color:` + color +`'>` + message + `</div>
          </div>`
 
        }
