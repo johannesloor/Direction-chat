@@ -78,7 +78,9 @@
 
    if (window.DeviceOrientationEvent) {
       window.addEventListener("deviceorientation", deviceOrientationListener, true);
-      document.getElementById("heading").innerHTML = 'Settings > Safari > Privacy & Security > Motion & Orientation Access (ON)'
+      if(document.getElementById("heading").value == ''){
+        alert('Settings > Safari > Privacy & Security > Motion & Orientation Access (ON)')
+      }
     }
     else {
       document.getElementById("heading").innerHTML = "Sorry, your browser doesn't support Device Orientation";
