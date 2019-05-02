@@ -91,7 +91,8 @@
      //Check if absolute values have been sent
      if (typeof event.webkitCompassHeading !== "undefined") {
        alpha = event.webkitCompassHeading; //for iOS devices
-
+       document.getElementById("heading").innerHTML = alpha;
+       /*
        if (alpha >= 305 || alpha < 45) {
          document.getElementById("heading").innerHTML = "North";
          showPage('chatWindowNorth')
@@ -110,7 +111,7 @@
        }
        else {
          document.getElementById("heading").innerHTML = "Not working";
-       }
+       }*/
      }
 
      else {
