@@ -75,11 +75,12 @@
      publishKey: 'pub-c-c1aedb02-8452-484d-8ca1-0c09c137307a',
      subscribeKey: 'sub-c-0303415a-6d10-11e9-a1d6-2a8c316da507'
    });
-   alert("här")
+
    if (window.DeviceOrientationEvent) {
       window.addEventListener("deviceorientation", deviceOrientationListener);
+      alert("tjo")
     }
-  else {
+    else {
 
       document.getElementById("heading").innerHTML = "Sorry, your browser doesn't support Device Orientation";
    }
