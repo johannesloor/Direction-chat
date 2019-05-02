@@ -79,6 +79,7 @@
       window.addEventListener("deviceorientation", deviceOrientationListener);
     }
   else {
+      alert("här")
       document.getElementById("heading").innerHTML = "Sorry, your browser doesn't support Device Orientation";
    }
 
@@ -90,6 +91,7 @@
 
      //Check if absolute values have been sent
      if (typeof event.webkitCompassHeading !== "undefined") {
+       alert("Whaat")
        alpha = event.webkitCompassHeading; //for iOS devices
        //document.getElementById("heading").innerHTML = alpha;
        /*
@@ -115,9 +117,7 @@
      }
 
      else {
-       alpha = event.webkitCompassHeading;
-       document.getElementById("heading").innerHTML = alpha;
-       //alert("Your device is reporting relative alpha values, so this compass won't point north :(");
+       alert("Your device is reporting relative alpha values, so this compass won't point north :(");
        /*var alpha = 360 - alpha; //heading [0, 360)
          if (alpha >= 305 || alpha < 45) {
            document.getElementById("heading").innerHTML = "North";
