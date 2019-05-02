@@ -78,7 +78,7 @@
 
    if (window.DeviceOrientationEvent) {
       window.addEventListener("deviceorientation", deviceOrientationListener);
-      alert("tjo")
+
     }
     else {
 
@@ -89,7 +89,7 @@
      var alpha   = event.alpha; //z axis rotation [0,360)
      var beta     = event.beta; //x axis rotation [-180, 180]
      var gamma   = event.gamma; //y axis rotation [-90, 90]
-
+     alert("I funktion")
 
      //Check if absolute values have been sent
      if (typeof event.webkitCompassHeading !== "undefined") {
