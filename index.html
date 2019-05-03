@@ -22,7 +22,7 @@
       }
 
       .chatWindow{
-        padding-bottom: 8%;
+        padding-bottom: 30px;
       }
       .messageArea{
         display: inline-block;
@@ -67,8 +67,6 @@
         <div id="heading" class="center heading">Direction chat</div>
       </ons-toolbar>
 
-      <div class="chatWindows">
-
       <div class="chatWindow" id="chatWindowNorth">
       </div>
 
@@ -80,14 +78,13 @@
 
       <div class="chatWindow" id="chatWindowWest">
       </div>
-      </div>
+
       <div class="messagebox container-fluid" aligned>
         <div class="row">
           <textarea class="textarea textarea--transparent col-8" rows="1" id="message" placeholder="Message"></textarea>
 
           <ons-button class="col-3 sendBtn" onclick="publishMessage()">Send</ons-button>
         </div>
-
       </div>
     </ons-page>
 
