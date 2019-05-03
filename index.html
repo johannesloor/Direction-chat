@@ -16,17 +16,13 @@
     <style media="screen">
       body {
         font-family: "Lucida Console", monospace, verdana;
-        position: fixed;
-        overflow: hidden;
-        margin: 0;
-        padding: 0;
+      }
+      .heading{
+        position: sticky;
       }
 
       .chatWindow{
         padding-bottom: 6vh;
-        width: 100vw;
-        overflow-y: scroll;
-        -webkit-overflow-scrolling: touch;
       }
       .messageArea{
         display: inline-block;
@@ -42,25 +38,25 @@
         border-radius: 40px 40px 40px 40px;
       }
       .messagebox{
-        position: fixed !important;
-        bottom: 0 !important;
+        position: fixed;
         width: 100%;
         background-color: lightgrey;
         padding-top: 1%;
         padding-bottom: 1%;
-        margin-top: 50%;
 
       }
       .sendBtn{
         border-radius: 50px 50px 50px 50px;
         text-align: center;
         margin-left: 4%;
+        padding: 0;
 
       }
       .textarea{
         border-radius: 50px 50px 50px 50px;
         background-color: white;
         margin-left: 1%;
+        margin-bottom: 3%;
       }
     </style>
   </head>
@@ -68,7 +64,7 @@
 
     <ons-page id="home">
       <ons-toolbar>
-        <div id="heading" class="center">Direction chat</div>
+        <div id="heading" class="center heading">Direction chat</div>
       </ons-toolbar>
 
       <div class="chatWindows">
@@ -85,14 +81,14 @@
       <div class="chatWindow" id="chatWindowWest">
       </div>
       </div>
-      <div class="messagebox container-fluid" aligned>
+      <ons-bottom-toolbar class="messagebox container-fluid" aligned>
         <div class="row">
           <textarea class="textarea textarea--transparent col-8" rows="1" id="message" placeholder="Message"></textarea>
 
           <ons-button class="col-3 sendBtn" onclick="publishMessage()">Send</ons-button>
         </div>
 
-      </div>
+      </ons-bottom-toolbar>
     </ons-page>
 
     <script>
