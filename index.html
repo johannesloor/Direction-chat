@@ -20,25 +20,41 @@
         font-family: "Lucida Console", monospace, verdana;
       }
       .chatWindow{
-        bottom: 10vh;
-        top: 5vh;
+        padding-bottom: 3%;
       }
       .messageArea{
         display: inline-block;
+        margin: 5px;
       }
       .message{
         background-color: #0084ff;
         color: white;
-        padding-top: 10px;
+        padding-top: 5px;
         padding-bottom: 5px;
         padding-left: 20px;
         padding-right: 20px;
+        border-radius: 40px 40px 40px 40px;
       }
       .messagebox{
         position: fixed;
-        left: 0;
-        bottom: 1;
+        bottom: 0;
         width: 100%;
+        background-color: lightgrey;
+        padding-top: 1%;
+        padding-bottom: 1%;
+        margin-top: 50%;
+
+      }
+      .sendBtn{
+        border-radius: 50px 50px 50px 50px;
+        text-align: center;
+        margin-left: 4%;
+
+      }
+      .textarea{
+        border-radius: 50px 50px 50px 50px;
+        background-color: white;
+        margin-left: 1%;
       }
     </style>
   </head>
@@ -62,13 +78,14 @@
       <div class="chatWindow" id="chatWindowWest">
       </div>
       </div>
-      <ons-bottom-toolbar class="messagebox container-fluid" aligned>
+      <div class="messagebox container-fluid" aligned>
         <div class="row">
-          <textarea class="textarea textarea--transparent col-9" rows="2" id="message" placeholder="Message"></textarea>
-          <ons-button class="col-3" onclick="publishMessage()">Send</ons-button>
+          <textarea class="textarea textarea--transparent col-9" rows="1" id="message" placeholder="Message"></textarea>
+
+          <ons-button class="col-2 sendBtn" onclick="publishMessage()">Send</ons-button>
         </div>
 
-      </ons-bottom-toolbar>
+      </div>
     </ons-page>
 
     <script>
@@ -172,12 +189,53 @@
         return color;
       }
 
+      function lightOrDark(color) {
+
+      // Variables for red, green, blue values
+      var r, g, b, hsp;
+
+      // Check the format of the color, HEX or RGB?
+      if (color.match(/^rgb/)) {
+        // If HEX --> store the red, green, blue values in separate variables
+        color = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
+
+        r = color[1];
+        g = color[2];
+        b = color[3];
+      }
+      else {
+        // If RGB --> Convert it to HEX: http://gist.github.com/983661
+        color = +("0x" + color.slice(1).replace(
+        color.length < 5 && /./g, '$&$&'));
+
+        r = color >> 16;
+        g = color >> 8 & 255;
+        b = color & 255;
+      }
+
+      // HSP (Highly Sensitive Poo) equation from http://alienryderflex.com/hsp.html
+      hsp = Math.sqrt(
+      0.299 * (r * r) +
+      0.587 * (g * g) +
+      0.114 * (b * b)
+      );
+
+      // Using the HSP value, determine whether the color is light or dark
+      if (hsp>160) { //127.5
+          return 'black';
+      }
+      else {
+          return 'white';
+      }
+    }
+
      function addTextbox(message, direction){
        let color = getRandomColor()
+       let textColor = lightOrDark(color)
        if (message != ''){
          document.getElementById("chatWindow" + direction).innerHTML +=
          `<div class="messageArea">
-         <div class="message" style='background-color:` + color +`'>` + message + `</div>
+         <div class="message" style='background-color:` + color +`;color:`+ textColor +`;'>` + message + `</div>
          </div>`
 
        }
