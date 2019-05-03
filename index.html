@@ -12,10 +12,20 @@
     <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
     <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.21.7.js"></script>
     <script type="text/javascript"></script>
-    <script src="js/noBounce.js" type="text/javascript"></script>
+
     <style media="screen">
       body {
         font-family: "Lucida Console", monospace, verdana;
+        position: fixed;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+      }
+      body > .mainwrapper {
+        width: 100vw;
+        height: 100vh;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch; /* enables “momentum” (smooth) scrolling */
       }
       .chatWindow{
         padding-bottom: 5vh;
@@ -57,6 +67,7 @@
     </style>
   </head>
   <body>
+    <div class="mainwrapper">
     <ons-page id="home">
       <ons-toolbar>
         <div id="heading" class="center">Direction chat</div>
@@ -86,10 +97,9 @@
       </div>
     </ons-page>
 
+    </div>
     <script>
-      noBounce.init({
-        animate: true
-      });
+
    // Get event data
    var pubnubDemo = new PubNub({
      publishKey: 'pub-c-c1aedb02-8452-484d-8ca1-0c09c137307a',
