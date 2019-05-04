@@ -12,6 +12,9 @@
     <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
     <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.21.7.js"></script>
     <script type="text/javascript"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-firestore.js"></script>
 
     <style media="screen">
       body {
@@ -85,6 +88,56 @@
     </ons-page>
 
     <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyBnrbtLtr1okyPDAniJpH0MPdikklx9qYg",
+        authDomain: "direction-chat.firebaseapp.com",
+        databaseURL: "https://direction-chat.firebaseio.com",
+        projectId: "direction-chat",
+        storageBucket: "direction-chat.appspot.com",
+        messagingSenderId: "30482739782",
+        appId: "1:30482739782:web:7d9cbd91f457915a"
+      };
+      // Initialize Firebase
+
+      //const firebase = require("firebase");
+      firebase.initializeApp(firebaseConfig);
+      // Required for side-effects
+      //require("firebase/firestore");
+      var db = firebase.firestore();
+
+      function sendToDb(message, direction){
+        db.collection(direction).add({
+            mess: message
+        })
+        .then(function(docRef) {
+            console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(function(error) {
+            console.error("Error adding document: ", error);
+        });
+      }
+
+      db.collection('North').get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+              addTextbox(`${doc.data().mess}`, 'North')
+          });
+      });
+      db.collection('South').get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+              addTextbox(`${doc.data().mess}`, 'South')
+          });
+      });
+      db.collection('East').get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+              addTextbox(`${doc.data().mess}`, 'East')
+          });
+      });
+      db.collection('West').get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+              addTextbox(`${doc.data().mess}`, 'West')
+          });
+      });
 
    // Get event data
    var pubnubDemo = new PubNub({
@@ -168,8 +221,8 @@
        message: function(message){
          message1 = message.message.text;
          let direction = message.channel;
-         addTextbox(message1, direction)
-         window.scrollTo(0,9999);
+         addTextbox(message1, direction);
+         sendToDb(message1, direction);
        }
      })
      pubnubDemo.subscribe({
